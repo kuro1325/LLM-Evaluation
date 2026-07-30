@@ -6,7 +6,7 @@
 
 ## 在线体验
 
-[打开 LLM Evaluation 在线版](https://llm-evaluation.coral-puppy-6797.chatgpt.site)
+[打开 LLM Evaluation 在线版](https://kuro1325.github.io/LLM-Evaluation/)
 
 > 真实评测需要填写自己的 OpenRouter API Key。Key 仅保存在当前浏览器会话中，关闭标签页后清除。
 
