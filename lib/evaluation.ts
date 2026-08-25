@@ -17,6 +17,7 @@ export async function runLiveEvaluation({
   task,
   requirement,
   source,
+  benchmark,
   modelA,
   modelB,
   metadata,
@@ -29,6 +30,7 @@ export async function runLiveEvaluation({
   task: TaskType;
   requirement: string;
   source: string;
+  benchmark?: string;
   modelA: string;
   modelB: string;
   metadata: ModelMetadata[];
@@ -93,7 +95,7 @@ export async function runLiveEvaluation({
     judge = await callJudge({
       apiKey,
       model: judgeModel,
-      prompt: buildJudgePrompt(scene, task, requirement, source, successful),
+      prompt: buildJudgePrompt(scene, task, requirement, source, successful, benchmark),
       schema: JUDGE_SCHEMA,
     });
   } catch (error) {

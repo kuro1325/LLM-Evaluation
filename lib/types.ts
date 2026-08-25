@@ -1,5 +1,14 @@
-export type Scene = "办公" | "法律";
-export type TaskType = "总结" | "提取" | "分类" | "生成";
+export type Scene = "办公" | "法律" | "英语教育";
+export type TaskType =
+  | "总结"
+  | "提取"
+  | "分类"
+  | "生成"
+  | "公文编校"
+  | "知识问答"
+  | "作业批改"
+  | "分级讲解"
+  | "作文辅导";
 
 export type Weights = {
   quality: number;
@@ -71,4 +80,3 @@ export type EvaluationResult = {
   incomplete: boolean;
   judgeError?: string;
 };
-

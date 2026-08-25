@@ -9,6 +9,23 @@ const taskRules: Record<TaskType, string> = {
     "必须使用用户给定标签；说明原文依据，信息不足时标记不确定，不得自创标签。",
   生成:
     "严格遵守用户要求、原文事实、结构和格式；内容应完整、清楚、可直接使用。",
+  公文编校:
+    "仅处理错别字、病句、标点和格式问题；不得改变原文中的时间、部门、数字、责任和要求。对无法确认的内容必须标记“需人工复核”。",
+  知识问答:
+    "结论必须正确，讲解应符合学生当前水平；优先使用题目与已给知识，不得编造语法规则或教材依据。",
+  作业批改:
+    "准确定位错误，给出修改结果和简明原因；不得把正确内容改错，也不得只给答案而不讲原因。",
+  分级讲解:
+    "围绕同一知识点，使用与目标年级和英语水平匹配的词汇、句长和例子；不得降低知识正确性。",
+  作文辅导:
+    "先肯定可取之处，再指出关键问题并给出可执行的修改建议；保留学生原意，不得直接代写一篇全新作文。",
+};
+
+const sceneRules: Record<Scene, string> = {
+  办公: "面向企业办公场景，优先保证事实准确、边界清晰与结果可执行。",
+  法律: "面向法律文本辅助场景，不得编造条款或代替专业人员下法律结论，高风险内容必须提示人工复核。",
+  英语教育:
+    "你是面向中国小学阶段学生的AI英语助教。回答必须知识正确、符合小学生的理解水平，使用简单、鼓励性的语言；不得引入超纲内容、编造教材依据或直接代替学生完成整项作业。信息不足时先追问或说明不确定性。",
 };
 
 export function buildTaskPrompt(
@@ -19,6 +36,7 @@ export function buildTaskPrompt(
 ): string {
   return [
     `你正在执行一个${scene}场景下的${task}任务。`,
+    `场景角色与边界：${sceneRules[scene]}`,
     `通用要求：${taskRules[task]}`,
     "用户的具体要求：",
     requirement,
@@ -36,6 +54,7 @@ export function buildJudgePrompt(
   requirement: string,
   source: string,
   runs: ModelRun[],
+  benchmark?: string,
 ): string {
   const answers = runs
     .filter((run) => run.status === "success")
@@ -55,6 +74,14 @@ export function buildJudgePrompt(
     "指令含糊不能自动判0，应降低置信度并标记人工复核。",
     "用户要求：",
     requirement,
+    ...(benchmark
+      ? [
+          "人工标注检查点（仅用于核验回答，不要求候选模型原样输出）：",
+          "<REFERENCE_CHECKS>",
+          benchmark,
+          "</REFERENCE_CHECKS>",
+        ]
+      : []),
     "<SOURCE>",
     source,
     "</SOURCE>",
@@ -96,4 +123,3 @@ export const JUDGE_SCHEMA = {
   required: ["items", "comparisonSummary"],
   additionalProperties: false,
 } as const;
-

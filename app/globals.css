@@ -211,6 +211,37 @@ button {
   font-size: 9px;
 }
 
+.fixed-scope {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 11px;
+  border: 1px solid #e4e0fb;
+  border-radius: 9px;
+  background: #faf9ff;
+}
+
+.fixed-scope strong {
+  color: #5142c4;
+  font-size: 12px;
+}
+
+.fixed-scope span,
+.field-help {
+  color: #8a92a0;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.education-rubric {
+  margin-top: 10px;
+}
+
+.field-help {
+  display: block;
+  margin-top: 7px;
+}
+
 .field-label {
   justify-content: space-between;
 }
@@ -249,6 +280,10 @@ textarea:focus {
 
 .segmented.two {
   grid-template-columns: 1fr 1fr;
+}
+
+.segmented.three {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .segmented button,
@@ -416,6 +451,33 @@ textarea:focus {
   border: 1px solid var(--line);
   border-radius: 13px;
   box-shadow: 0 4px 16px rgba(26, 34, 52, 0.035);
+}
+
+.guardrail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 22px 20px;
+}
+
+.guardrail-grid > div {
+  padding: 13px 14px;
+  border: 1px solid #e4e6ed;
+  border-radius: 9px;
+  background: #fbfcfd;
+}
+
+.guardrail-grid span {
+  color: #5b50b8;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.guardrail-grid p {
+  margin: 7px 0 0;
+  color: #687182;
+  font-size: 11px;
+  line-height: 1.65;
 }
 
 .input-card {
